@@ -52,16 +52,77 @@ Siguiendo el ejemplo anterior, si la pendiente es de 0.5, significa que por cada
 ##10.¿Qué implicaciones conlleva obtener un intercepto con valor ‘0’?
 1)Matematicamente podria implicar que cuando todas las variables independientes son iguales a cero, el valor esperado de la variable dependiente también es cero.
 2)Esto podria ser motivo de sesgo en el modelo si los datos no están adecuadamente representados o que el modelo no se ajusta a los datos y necesita de una revisión.
-
+3)En algunos casos puede ser práctico en el sentido de que un intercepto 0 simplemente puede representar un resultado poco probable en relación con la realidad del modelo.
 
 ##11.¿Qué ponderación lleva a cabo el análisis de regresión lineal para calcular los valores de los parámetros que configuran la recta de regresión?
+El método comúnmente usado para calcular los valores de los parámetros que configuran la recta de regresión es el método de mínimos cuadrados, que tiene como objetivos disminuir las diferencias entre los valores observados de la variable y los valores predichos por el modelo.
 
 ##12.¿Cuál sería el error asociado a mi modelo en la estimación del número de cuentas para un yacimiento que se encuentra a 1.1 km de la mina?
+Haciendo uso de la ecuación, le ponemos un valor a cada una de las entidades de la ecuacion, teniendo que la regresion lineal es Y=b0 + b1X + E (siendo E el error),despejamos la E y ponemos nuestro modelo en práctica. 
+```{r echo=TRUE}
 
+dist_cuentas <- data.frame(
+  distancia = c(1.1, 150, 95.3, 4.4, 47.5, 7.6, 35.7, 67.8, 50.9, 84.1),
+  num_cuentas = c(110, 5, 2, 92, 45, 95, 30, 3, 9, 11)
+)
+#Ajustar el modelo
+modelo <- lm(num_cuentas ~ distancia, data = dist_ncuentas)
+
+# Predecir el número de cuentas para una distancia de 1.1 km
+distancia_nueva <- 1.1
+prediccion1 <- predict(modelo, newdata = data.frame(distancia = distancia_nueva))
+
+# Encontrar el valor observado para esa distancia en tus datos
+valor_observado <- dist_cuentas$num_cuentas[which(dist_cuentas$distancia == 1.1)]
+
+# Calcular el error
+error <- valor_observado - prediccion1
+
+cat("El error es:", error, "\n")
+
+
+```
 ##13.¿Cómo calcularías los residuos del modelo dado los siguientes datos?
-Figura 2: Tabla de datos referidos a número de cuentas por yacimiento y su estimación atendiendo al modelo lineal. Fuente: Elaboración propia.
+```{r echo=TRUE}
+data <- data.frame(
+  distancia = c(1.1, 100.2, 90.3, 5.4, 57.5, 6.6, 34.7, 65.8, 57.8, 86.1),
+  num_cuentas = c(110, 2, 6, 98, 40, 94, 31, 5, 8, 10)
+)
+
+modelo <- lm(num_cuentas ~ distancia, data = data)
+
+prediccionescuentas<- predict(modelo)
+
+residuos <- data$num_cuentas - prediccionescuentas
+
+residuos
+```
 ##14.Con los datos residuales, verifica si se cumple (o no) el supuesto de normalidad.
+```{r echo=TRUE}
+
+residuos <- residuals(modelo)
+
+qqnorm(residuos)
+qqline(residuos)
+
+shapiro.test(residuos)
+```
+En este caso sí que cumple el supuesto de normalidad.
+
 ##15.¿Que 2 de conjuntos (de datos) se han de emplear en la modelización lineal? ¿Cómo llevarías a cabo la preparación de estos?
+En primer lugar los datos de las variables que van a formar parte del modelo, pero en cuetión de entrenamiento para ajustarlo. Para prepararlos, escogeria una serie de muestras (de lo que sea) que sean representativas de los datos, diferenicar las variables (independeintes y dependientes), corregir los valores faltantes o que den error además de transformar esas variables si fuera necesario, y, por último, hacer una division de esos datos en unos subconjuntos a los que se les aplicará el modelo a modo de prueba.
+
+En segundo lugar mencionaría los conjuntos de datos de prueba
+
+Este conjunto de datos se utiliza para evaluar el rendimiento del modelo ajustado en datos no vistos. Consiste en una muestra independiente de datos que no se ha utilizado para ajustar el modelo.
+La preparación de este conjunto implica:
+Aplicar las mismas transformaciones que se realizaron en el conjunto de datos de entrenamiento (si es necesario).
+Asegurarse de que las variables independientes y la variable dependiente estén en el mismo formato que en el conjunto de datos de entrenamiento.
+Verificar que no haya valores faltantes o datos atípicos en el conjunto de datos de prueba.
+Asegurarse de que la distribución de las variables en el conjunto de datos de prueba sea similar a la del conjunto de datos de entrenamiento.
+
+
+
 ##16.Evalúa la capacidad predictiva del modelo implementando una validación cruzada simple.
 ##17.Si mis coeficientes de regresión se han calculado con un intervalo de confianza del 95% ¿cuál será la probabilidad de que la correlación lineal entre los coeficientes de regresión y la variable de respuesta o explicada se deba al azar? ¿Y si tengo un nivel de significación (Alpha) de 0.01, con que Intervalo de Confianza he obtenido mis coeficientes de regresión?
 ##18.Si las estimaciones arrojadas por mi modelo lineal resultan menos precisas (mayor error) en un determinado rango de valores con respecto a otro, decimos ¿qué hay indicios de homocedasticidad o heterocedasticidad?
