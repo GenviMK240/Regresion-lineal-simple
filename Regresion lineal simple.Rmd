@@ -84,16 +84,12 @@ cat("El error es:", error, "\n")
 ```
 ##13.¿Cómo calcularías los residuos del modelo dado los siguientes datos?
 ```{r echo=TRUE}
-data <- data.frame(
-  distancia = c(1.1, 100.2, 90.3, 5.4, 57.5, 6.6, 34.7, 65.8, 57.8, 86.1),
-  num_cuentas = c(110, 2, 6, 98, 40, 94, 31, 5, 8, 10)
+calc_residuos<- data.frame(
+  cuentas = c(6,98,40,94,31,5,8,10),
+  prediccion = c(-6.682842,85.520196,28.938591,84.216973,53.69983,19.924631,28.504183,-2.121561)
 )
 
-modelo <- lm(num_cuentas ~ distancia, data = data)
-
-prediccionescuentas<- predict(modelo)
-
-residuos <- data$num_cuentas - prediccionescuentas
+residuos <- calc_residuos$cuentas - prediccion
 
 residuos
 ```
@@ -112,19 +108,42 @@ En este caso sí que cumple el supuesto de normalidad.
 ##15.¿Que 2 de conjuntos (de datos) se han de emplear en la modelización lineal? ¿Cómo llevarías a cabo la preparación de estos?
 En primer lugar los datos de las variables que van a formar parte del modelo, pero en cuetión de entrenamiento para ajustarlo. Para prepararlos, escogeria una serie de muestras (de lo que sea) que sean representativas de los datos, diferenicar las variables (independeintes y dependientes), corregir los valores faltantes o que den error además de transformar esas variables si fuera necesario, y, por último, hacer una division de esos datos en unos subconjuntos a los que se les aplicará el modelo a modo de prueba.
 
-En segundo lugar mencionaría los conjuntos de datos de prueba
-
-Este conjunto de datos se utiliza para evaluar el rendimiento del modelo ajustado en datos no vistos. Consiste en una muestra independiente de datos que no se ha utilizado para ajustar el modelo.
-La preparación de este conjunto implica:
-Aplicar las mismas transformaciones que se realizaron en el conjunto de datos de entrenamiento (si es necesario).
-Asegurarse de que las variables independientes y la variable dependiente estén en el mismo formato que en el conjunto de datos de entrenamiento.
-Verificar que no haya valores faltantes o datos atípicos en el conjunto de datos de prueba.
-Asegurarse de que la distribución de las variables en el conjunto de datos de prueba sea similar a la del conjunto de datos de entrenamiento.
-
-
+En segundo lugar mencionaría los conjuntos de datos de prueba, los usados para evaluar el rendimiento del modelo en datos que no se les había aplicad en el entrenamiento. Esto implica: aplicar el mismo proceso de tratamiento de datos que en el entrenamiento (si fuera necesario), asegurarse de que todas las variables esten en el mismo formato en el que se ha entrenado al modelo, verificar que no haya errores en los valores o NA y asegurarque la distribucion de las variables sea similar al del conjunto de datos del entrenamiento.
 
 ##16.Evalúa la capacidad predictiva del modelo implementando una validación cruzada simple.
+```{r echo=TRUE}
+data <- data.frame(
+  distancia = c(1.1, 100.2, 90.3, 5.4, 57.5, 6.6, 34.7, 65.8, 57.8, 86.1),
+  num_cuentas = c(110, 2, 6, 98, 40, 94, 31, 5, 8, 10)
+)
+
+modelo <- lm(num_cuentas ~ distancia, data = data)
+
+prediccionesmodelo <- predict(modelo, data)
+
+plot(data$num_cuentas, prediccionesmodelo,
+     xlab = "Valores Observados", ylab = "Valores Predichos",
+     main = "Valores Observados vs. Valores Predichos")
+abline(0, 1, col = "pink") 
+
+correlacion <- cor(data$num_cuentas, prediccionesmodelo)
+text(100, 100, paste("Correlación:", round(correlacion, 2)))
+
+
+
+
+```
+
 ##17.Si mis coeficientes de regresión se han calculado con un intervalo de confianza del 95% ¿cuál será la probabilidad de que la correlación lineal entre los coeficientes de regresión y la variable de respuesta o explicada se deba al azar? ¿Y si tengo un nivel de significación (Alpha) de 0.01, con que Intervalo de Confianza he obtenido mis coeficientes de regresión?
+La probabilidad de que la correlación lineal entre los coeficientes de regresión y la variable de respuesta se deba al azar es del 5%.
+
+Con un nivel de significación Alpha el intervalo de confianza obtenido es de un 99%.
+
 ##18.Si las estimaciones arrojadas por mi modelo lineal resultan menos precisas (mayor error) en un determinado rango de valores con respecto a otro, decimos ¿qué hay indicios de homocedasticidad o heterocedasticidad?
+Existirian indicios de heterocedasticidad.
+
 ##19.¿Qué medida de precisión estadística nos indica el % de variabilidad explicada de la variable dependiente por nuestro modelo lineal?
-##20.Explica la diferencia entre una observación atípica y una observación que produzca lo que se conoce en estadística como “apalancamiento” del modelo?
+ Es el llamado coeficiente de determinación. 
+
+##20.Explica la diferencia entre una observación atípica y una observación que produzca lo que se conoce en estadística como “apalancamiento” del modelo
+Las observaciones atípicas se destacan por tener valores inusuales en la variable de respuesta, las observaciones de apalancamiento por tener valores inusuales en las variables predictoras. Ambos fenomenos afectan al modelo y deben ser tratados para obtener resultados validos y precisos. 
