@@ -10,18 +10,54 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ##1.Si pretendiésemos explicar un suceso y/o fenómeno acontecido en el pasado ¿Podemos inferir la respuesta asociada a dichos eventos en base a los restos materiales presentes?
+Podemos inferir esa respuesta ya que para que se pueda llevar a cabo estadística inferencial es necesario partir de una serie de datos empíricos, los cuales siempre vamos a tener en nuestros yacimientos en forma de restos arqueológicos, la cuestión es que esta estadística, mas bien su margen de error o inexactitud, está en la cantidad que poseamos de esos restos materiales. Siempre será necesario un muestreo y un mínimo de muestras para inferir la respuesta de un hecho en concreto, pero poder, se puede.
+
 ##2.Haciendo referencia al análisis de correlación lineal de Pearson, ¿establece este algún tipo de relación causa-efecto de una variable sobre otra(s)?
+Este análisis no establece una relación de causa y efecto entre dos variables, solo mide el cómo cambian conjuntamente estas, si en la misma dirección o no, y si es en la misma proporción, pero no nos da el porqué ocurre esto.
+
 ##3.Define causalidad. Exponga algún ejemplo.
+La causalidad indica una relación directa de casua y efecto entre dos eventos diferentes, es decir, que un evento es el resultado de otro evento, lo que los relaciona estrechamente.
+
+Un ejemplo, una persona que sigue una dieta rigurosa y hace ejercicio, tendrá mejor salud.
+
 ##4.¿Podrías mencionar los parámetros involucrados en la ecuación de regresión lineal?
+Principalmente son dos:
+-El intercepto
+-La pendiente
+
 ##5.En un plano cartesiano, si afirmo que el eje ‘x’ también se denomina eje de ordenadas, ¿estoy en lo cierto?
+El eje "x" es el llamado "eje de abcisas", el "eje de ordenadas" es el eje "y" de un plano cartesiano.
+
 ##6.¿Sabrías diferenciar entre recta de regresión y plano de regresión?
+La diferencia entre ambas radica entre que la recta de regresión se utiliza cuando solo hay una variable independiente, mientras que un plano de regresión se utiliza cuando hay dos o más variables independientes.
+
 ##7.¿Cuáles son los supuestos (o hipótesis) del análisis de regresión lineal?
+Son cuatro:
+-La linealidad
+-La homocedasticidas
+-La normalidad
+-La independencia
+
 ##8.Dados los siguientes datos, calcula la recta de regresión que mejor se adapte a nuestra nube de puntos siendo “cuentas” la variable dependiente o de respuesta y “distancia” la variable independiente o explicativa.
 Figura 1: Tabla de datos referidos a número de cuentas por yacimiento y distancia (km) del yacimiento a la mina. Fuente: Elaboración propia.
 ##9.¿Serías capaz de interpretar el significado de los parámetros de la ecuación de regresión?
+La ecuación de la regresión es la siguiente: Y=b0 + b1X, siendo:
+-b0, el intercepto: es el valor esperado de la variable dependiente (Y) cuando la variable independiente (X) es igual a cero.
+Por ejemplo: si tenemos en la ecuación Y= 10 + 0.5X, siendo Y la temperatura respecto a la cantidad de horas de sol (X), en este caso, nuestra b0 sería 10 e indica que cuando existen 0 horas de sol, la temperatura es de 10ºC.
+
+-b1, es la pendiente: indica indica cómo cambia la variable dependiente (Y) a medida que cambia la variable independiente (X).
+
+Siguiendo el ejemplo anterior, si la pendiente es de 0.5, significa que por cada hora adicional de sol, la temperatura aumenta en 0.5ºC.
+
 ##10.¿Qué implicaciones conlleva obtener un intercepto con valor ‘0’?
+1)Matematicamente podria implicar que cuando todas las variables independientes son iguales a cero, el valor esperado de la variable dependiente también es cero.
+2)Esto podria ser motivo de sesgo en el modelo si los datos no están adecuadamente representados o que el modelo no se ajusta a los datos y necesita de una revisión.
+
+
 ##11.¿Qué ponderación lleva a cabo el análisis de regresión lineal para calcular los valores de los parámetros que configuran la recta de regresión?
+
 ##12.¿Cuál sería el error asociado a mi modelo en la estimación del número de cuentas para un yacimiento que se encuentra a 1.1 km de la mina?
+
 ##13.¿Cómo calcularías los residuos del modelo dado los siguientes datos?
 Figura 2: Tabla de datos referidos a número de cuentas por yacimiento y su estimación atendiendo al modelo lineal. Fuente: Elaboración propia.
 ##14.Con los datos residuales, verifica si se cumple (o no) el supuesto de normalidad.
