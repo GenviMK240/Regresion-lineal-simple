@@ -66,7 +66,7 @@ dist_cuentas <- data.frame(
   num_cuentas = c(110, 5, 2, 92, 45, 95, 30, 3, 9, 11)
 )
 #Ajustar el modelo
-modelo <- lm(num_cuentas ~ distancia, data = dist_ncuentas)
+modelo <- lm(num_cuentas ~ distancia, data = dist_cuentas)
 
 # Predecir el número de cuentas para una distancia de 1.1 km
 distancia_nueva <- 1.1
@@ -86,10 +86,10 @@ cat("El error es:", error, "\n")
 ```{r echo=TRUE}
 calc_residuos<- data.frame(
   cuentas = c(6,98,40,94,31,5,8,10),
-  prediccion = c(-6.682842,85.520196,28.938591,84.216973,53.69983,19.924631,28.504183,-2.121561)
+  prediction = c(-6.682842,85.520196,28.938591,84.216973,53.69983,19.924631,28.504183,-2.121561)
 )
 
-residuos <- calc_residuos$cuentas - prediccion
+residuos <- calc_residuos$cuentas -  prediction
 
 residuos
 ```
@@ -106,7 +106,7 @@ shapiro.test(residuos)
 En este caso sí que cumple el supuesto de normalidad.
 
 ##15.¿Que 2 de conjuntos (de datos) se han de emplear en la modelización lineal? ¿Cómo llevarías a cabo la preparación de estos?
-En primer lugar los datos de las variables que van a formar parte del modelo, pero en cuetión de entrenamiento para ajustarlo. Para prepararlos, escogeria una serie de muestras (de lo que sea) que sean representativas de los datos, diferenicar las variables (independeintes y dependientes), corregir los valores faltantes o que den error además de transformar esas variables si fuera necesario, y, por último, hacer una division de esos datos en unos subconjuntos a los que se les aplicará el modelo a modo de prueba.
+En primer lugar los datos de las variables que van a formar parte del modelo, pero en cuetión de entrenamiento para ajustarlo. Para prepararlos, escogeria una serie de muestras (de lo que sea) que sean representativas de los datos, diferenicar las variables (independeintes y dependientes), corregir los valores faltantes o que den error además de transformar esas variables si fuera necesario, y, por último, hacer una división de esos datos en unos subconjuntos a los que se les aplicará el modelo a modo de prueba.
 
 En segundo lugar mencionaría los conjuntos de datos de prueba, los usados para evaluar el rendimiento del modelo en datos que no se les había aplicad en el entrenamiento. Esto implica: aplicar el mismo proceso de tratamiento de datos que en el entrenamiento (si fuera necesario), asegurarse de que todas las variables esten en el mismo formato en el que se ha entrenado al modelo, verificar que no haya errores en los valores o NA y asegurarque la distribucion de las variables sea similar al del conjunto de datos del entrenamiento.
 
